@@ -1,6 +1,10 @@
+import os
 import numpy as np
 from PIL import Image, ImageOps
 from flask import Flask, render_template, request
+from werkzeug.utils import secure_filename
+
+UPLOAD_FOLDER = 'uploads'  # replace with your upload folder path
 
 def rgb_to_hex(rgb):
     return '%02x%02x%02x' % rgb
@@ -46,14 +50,18 @@ def give_most_hex(file_path, code, radio_choice):
         return top_10
 
 app = Flask(__name__)
+app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
 
 @app.route('/', methods=['GET', 'POST'])
 def index():
     if request.method == 'POST':
         file = request.files['file']
+        filename = secure_filename(file.filename)
+        file_path = os.path.join(app.config['UPLOAD_FOLDER'], filename)
+        file.save(file_path)
         colour_code = request.form['colour_code']
         radio_choice = request.form.get('radio')
-        colors = give_most_hex(file.stream, colour_code, radio_choice)
+        colors = give_most_hex(file_path, colour_code, radio_choice)
         return render_template('index.html',
                                colors_list=colors,
                                code=colour_code)

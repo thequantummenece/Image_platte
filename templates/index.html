@@ -3,46 +3,287 @@
 <head>
     <meta charset="UTF-8">
     <title>Top Colors Finder</title>
-    <link rel="stylesheet" href="style.css">
+    <style>
+        .container {
+            height: 100%;
+            width: 100%;
+            border-radius: 10px;
+            box-shadow: 4px 4px 30px rgba(0, 0, 0, .2);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: space-between;
+            padding: 10px;
+            gap: 5px;
+            background-color: rgba(255, 255, 255, 0.074);
+            border: 1px solid rgba(255, 255, 255, 0.222);
+            -webkit-backdrop-filter: blur(20px);
+            backdrop-filter: blur(20px);
+        }
+
+        .header {
+            flex: 1;
+            width: 100%;
+            border: 2px dashed royalblue;
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-direction: column;
+        }
+
+        .header svg {
+            height: 100px;
+        }
+
+        .header p {
+            text-align: center;
+            color: black;
+        }
+
+        .footer {
+            background-color: rgba(0, 110, 255, 0.075);
+            width: 100%;
+            height: 40px;
+            padding: 8px;
+            border-radius: 10px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: flex-end;
+            color: black;
+            border: none;
+        }
+
+        .footer svg {
+            height: 130%;
+            fill: royalblue;
+            background-color: rgba(70, 66, 66, 0.103);
+            border-radius: 50%;
+            padding: 2px;
+            cursor: pointer;
+            box-shadow: 0 2px 30px rgba(0, 0, 0, 0.205);
+        }
+
+        .footer p {
+            flex: 1;
+            text-align: center;
+        }
+
+        #file {
+            display: none;
+        }
+
+        .file-uploaded label {
+            background-color: green;
+            color: white;
+        }
+
+        .radio-inputs {
+            position: relative;
+            display: flex;
+            flex-wrap: wrap;
+            border-radius: 0.5rem;
+            background-color: #EEE;
+            box-sizing: border-box;
+            box-shadow: 0 0 0px 1px rgba(0, 0, 0, 0.06);
+            padding: 0.25rem;
+            width: 300px;
+            font-size: 14px;
+        }
+
+        .radio-inputs .radio {
+            flex: 1 1 auto;
+            text-align: center;
+        }
+
+        .radio-inputs .radio input {
+            display: none;
+        }
+
+        .radio-inputs .radio .name {
+            display: flex;
+            cursor: pointer;
+            align-items: center;
+            justify-content: center;
+            border-radius: 0.5rem;
+            border: none;
+            padding: .5rem 0;
+            color: rgba(51, 65, 85, 1);
+            transition: all .15s ease-in-out;
+        }
+
+        .radio-inputs .radio input:checked + .name {
+            background-color: #fff;
+            font-weight: 600;
+        }
+
+        .button {
+            color: #224044;
+            font-size: 17px;
+            background-color: #2ECEE3;
+            border: 1px solid #2ECEE3;
+            border-radius: 5px;
+            padding: 10px;
+            box-shadow: 0px 6px 0px #1F818E;
+            transition: all .1s;
+        }
+
+        .button:active {
+            box-shadow: 0px 2px 0px #d35400;
+            position: relative;
+            top: 2px;
+        }
+
+        .custum-file-upload {
+            height: 200px;
+            width: 300px;
+            display: flex;
+            flex-direction: column;
+            align-items: space-between;
+            gap: 20px;
+            cursor: pointer;
+            align-items: center;
+            justify-content: center;
+            border: 2px dashed #1B57D1;
+            background-color: #5CEAEE;
+            padding: 1.5rem;
+            border-radius: 10px;
+            box-shadow: 0px 48px 35px -48px #e8e8e8;
+        }
+
+        .custum-file-upload .icon {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .custum-file-upload .icon svg {
+            height: 80px;
+            fill: #1B57D1;
+        }
+
+        .custum-file-upload .text {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .custum-file-upload .text span {
+            font-weight: 400;
+            color: #1B57D1;
+        }
+
+        .custum-file-upload input {
+            display: none;
+        }
+
+        .custum-file-upload.file-uploaded {
+            background-color: #00FF00;
+            color: #FFFFFF;
+        }
+
+        .uploaded-icon {
+            height: 80px;
+        }
+
+        .uploaded-text {
+            display: none;
+        }
+
+        .file-uploaded .upload-text {
+            display: none;
+        }
+
+        .file-uploaded .uploaded-text {
+            display: block;
+        }
+
+        main {
+            /* Your existing styles for main */
+        }
+
+        .pair {
+            /* Your existing styles for pair */
+        }
+
+        .color-box {
+            /* Your existing styles for color-box */
+        }
+
+        .color-box-value {
+            /* Your existing styles for color-box-value */
+        }
+    </style>
 </head>
 <body>
-    <header>
-        <h1>Welcome to Image Colour Palette Generator</h1>
-        <p>
-            Upload an image, and this site will tell you the top 10 most used colors along with their hex codes.
-            If two colors appear the same number of times, both will be shown here.
-        </p>
-    </header>
-    <form action="/" method="POST" enctype="multipart/form-data">
-        <input name="file" type="file" required />
-        <br>
-        <h3>Select a Colour Code:</h3>
-        <div class="radio-inputs">
-            <label class="radio">
-                <input type="radio" name="colour_code" checked value="rgb">
-                <span class="name">RGB</span>
+    <div class="container">
+        <header class="header">
+            <h1>Welcome to Image Colour Palette Generator</h1>
+            <p>
+                Upload an image, and this site will tell you the top 10 most used colors along with their hex codes.
+                If two colors appear the same number of times, both will be shown here.
+            </p>
+        </header>
+        <form action="/" method="POST" enctype="multipart/form-data">
+            <label for="file" class="custum-file-upload">
+                <div class="icon">
+                    <img class="upload-icon" src="icons/upload.png">
+                    <img class="uploaded-icon" src="icons/check.png" style="display: none;">
+                </div>
+
+                <div class="text">
+                    <span class="upload-text">Click to upload image</span>
+                    <span class="uploaded-text">Uploaded</span>
+                </div>
+                <input id="file" type="file" name="file" style="display: none;" required/>
             </label>
-            <label class="radio">
-                <input type="radio" name="colour_code" value="hex">
-                <span class="name">HEX</span>
-            </label>
-        </div>
-        <div>
-            <button class="button" type="submit">Submit</button>
-        </div>
-    </form>
-    <main>
-        {% for i in range(colors_list|length) %}
-            <div class="pair">
-                {% if code != 'hex' %}
-                    <div class="color-box" style = " width: 100px; height: 100px;background-color: rgb{{ colors_list[i] }};"></div>
-                    <div class="color-box-value"> {{i+1}}:  rgb{{ colors_list[i] }}</div>
-                {% else %}
-                    <div class="color-box" style = "width: 100px; height: 100px;background-color: #{{ colors_list[i] }};"></div>
-                    <div class="color-box-value"> {{i+1}}:   #{{ colors_list[i] }}</div>
-                {% endif %}
+            <br>
+            <h3>Select a Colour Code:</h3>
+            <div class="radio-inputs">
+                <label class="radio">
+                    <input type="radio" name="colour_code" checked value="rgb">
+                    <span class="name">RGB</span>
+                </label>
+                <label class="radio">
+                    <input type="radio" name="colour_code" value="hex">
+                    <span class="name">HEX</span>
+                </label>
             </div>
-        {% endfor %}
-    </main>
+            <br>
+            <div>
+                <button class="button" type="submit">Submit</button>
+            </div>
+        </form>
+        <script>
+            document.getElementById('file').addEventListener('change', function() {
+                const label = document.querySelector('.custum-file-upload');
+                label.classList.add('file-uploaded');
+
+                const uploadIcon = document.querySelector('.upload-icon');
+                const uploadedIcon = document.querySelector('.uploaded-icon');
+                uploadIcon.style.display = 'none';
+                uploadedIcon.style.display = 'block';
+
+                const uploadText = document.querySelector('.upload-text');
+                const uploadedText = document.querySelector('.uploaded-text');
+                uploadText.style.display = 'none';
+                uploadedText.style.display = 'block';
+            });
+        </script>
+        <main>
+            {% for i in range(colors_list|length) %}
+                <div class="pair">
+                    {% if code != 'hex' %}
+                        <div class="color-box" style="width: 100px; height: 100px; background-color: rgb{{ colors_list[i] }};"></div>
+                        <div class="color-box-value"> {{i+1}}:  rgb{{ colors_list[i] }}</div>
+                    {% else %}
+                        <div class="color-box" style="width: 100px; height: 100px; background-color: #{{ colors_list[i] }};"></div>
+                        <div class="color-box-value"> {{i+1}}:   #{{ colors_list[i] }}</div>
+                    {% endif %}
+                </div>
+            {% endfor %}
+        </main>
+    </div>
 </body>
 </html>
