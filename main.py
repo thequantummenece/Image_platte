@@ -32,9 +32,7 @@ def give_most_hex(file_path, code, radio_choice):
             if t_rgb in unique_colors:
                 unique_colors[t_rgb] += 1
 
-    sorted_unique_colors = sorted(
-        unique_colors.items(), key=lambda x: x[1],
-        reverse=True)
+    sorted_unique_colors = sorted(unique_colors.items(), key=lambda x: x[1],reverse=True)
     converted_dict = dict(sorted_unique_colors)
 
     values = list(converted_dict.keys())
